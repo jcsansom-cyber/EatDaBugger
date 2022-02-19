@@ -1,0 +1,4 @@
+ideas.txt
+
+Make one of the bugs percent chance of appearing less than that of the other bugs; this bug can
+be worth more points to shoot.
