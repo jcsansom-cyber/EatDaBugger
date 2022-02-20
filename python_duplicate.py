@@ -33,6 +33,9 @@ def draw_window(player, ladybugs, bad_bugs, bad_bugs_eaten, bad_bugs_dist):
     # WIN.blit(, (player.x, player.y))
     for lady in ladybugs:
         WIN.blit(BUG1_IMG, (lady.x, lady.y))
+    for z in bad_bugs:
+            z.x+=random.randint(-5,5)
+            z.y+=random.randint(-5,5)
     for baddie in bad_bugs:
         if not bad_bugs_eaten[bad_bugs.index(baddie)]:
             WIN.blit(bad_bugs_dist[bad_bugs.index(baddie)], (baddie.x, baddie.y))
@@ -73,7 +76,7 @@ def main():
         pygame.Rect(random.randrange(int(LADYBUG_WIDTH/2), WIDTH-int(LADYBUG_WIDTH/2)), 370, LADYBUG_WIDTH, LADYBUG_HEIGHT),
     ]
     clock = pygame.time.Clock()
-    running = True;
+    running = True
     while running:
         clock.tick(FPS)
         for event in pygame.event.get():
@@ -95,10 +98,10 @@ def main():
                 x = bad_bugs.index(bug)
                 bad_bugs_eaten[x] = True
                 # points+=1
-        running = False # Made false only to be made true again as long as there are still uneaten bugs
-        for condition in bad_bugs_eaten:
-            if not condition:
-                running = True;
+        #running = False # Made false only to be made true again as long as there are still uneaten bugs
+        #for condition in bad_bugs_eaten:
+         #   if not condition:
+          #      running = True;
         draw_window(player, ladybugs, bad_bugs, bad_bugs_eaten, bad_bugs_dist)
             
     pygame.quit()
