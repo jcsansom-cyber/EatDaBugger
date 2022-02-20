@@ -31,30 +31,20 @@ pygame.display.set_caption("Eat Da Bugger")
 
 def draw_window(player, ladybugs, bad_bugs, bad_bugs_eaten, bad_bugs_dist):
     WIN.fill((50, 50, 50))
-    # WIN.fill(PhotoImage('photo-1465101162946-4377e57745c3.jpeg'))
     WIN.blit(BG, (0, 0))
-    # WIN.blit(, (player.x, player.y))
     for lady in ladybugs:
         WIN.blit(BUG1_IMG, (lady.x, lady.y))
-            
     for bug in bad_bugs:
-        new_x = random.randint(-10,10) + bug.x
-        new_y = random.randint(-10,10) + bug.y
+        new_x = random.randint(-20,20) + bug.x
+        new_y = random.randint(-20,20) + bug.y
         if new_x < (WIDTH - BAD_BUG_WIDTH) and new_x > (BAD_BUG_WIDTH): 
             bug.x = new_x
-        # else:
-        #     bug.x -= new_x
         if new_y < (HEIGHT - BAD_BUG_HEIGHT) and new_y > (BAD_BUG_HEIGHT):
             bug.y = new_y
-        # else:
-        #     bug.y -= new_y
-
     for baddie in bad_bugs:
         if not bad_bugs_eaten[bad_bugs.index(baddie)]:
             WIN.blit(bad_bugs_dist[bad_bugs.index(baddie)], (baddie.x, baddie.y))
     WIN.blit(PLAYER_IMG, (player.x, player.y))
-    # WIN.blit("Points", (player.x, player.y))
-
     pygame.display.update()
 
 def all_bugs_eaten(bad_bugs_eaten):
@@ -65,25 +55,27 @@ def all_bugs_eaten(bad_bugs_eaten):
     return completed
 
 def main():
+    success = False;
+    print("\nEat all the little bugs to win! Don't eat the ladybugs!")
     # pygame.Rect(x, y, width, height of object)
     player = pygame.Rect(CENTER[0] - (PLAYER_WIDTH/2), CENTER[1] - (PLAYER_HEIGHT/2), PLAYER_WIDTH, PLAYER_HEIGHT)
     bad_bugs = [
-        pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-int(BAD_BUG_WIDTH/2)), 90, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
-        pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-int(BAD_BUG_WIDTH/2)), 90, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
-        pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-int(BAD_BUG_WIDTH/2)), 160, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
-        pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-int(BAD_BUG_WIDTH/2)), 160, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
-        pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-int(BAD_BUG_WIDTH/2)), 300, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
-        pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-int(BAD_BUG_WIDTH/2)), 300, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
-        pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-int(BAD_BUG_WIDTH/2)), 370, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
-        pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-int(BAD_BUG_WIDTH/2)), 370, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
+        pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-BAD_BUG_WIDTH), 90, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
+        pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-BAD_BUG_WIDTH), 125, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
+        pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-BAD_BUG_WIDTH), 160, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
+        pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-BAD_BUG_WIDTH), 230, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
+        pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-BAD_BUG_WIDTH), 300, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
+        pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-BAD_BUG_WIDTH), 460, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
+        pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-BAD_BUG_WIDTH), 520, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
+        pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-BAD_BUG_WIDTH), 600, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
     ]
     bad_bugs_eaten = [False, False, False, False, False, False, False, False]
     bad_bugs_dist = [BUG2_IMG, BUG3_IMG, BUG2_IMG, BUG3_IMG, BUG2_IMG, BUG3_IMG, BUG2_IMG, BUG3_IMG]
     ladybugs = [
-        pygame.Rect(random.randrange(int(LADYBUG_WIDTH/2), WIDTH-int(LADYBUG_WIDTH/2)), 100, LADYBUG_WIDTH, LADYBUG_HEIGHT),
-        pygame.Rect(random.randrange(int(LADYBUG_WIDTH/2), WIDTH-int(LADYBUG_WIDTH/2)), 200, LADYBUG_WIDTH, LADYBUG_HEIGHT),
-        pygame.Rect(random.randrange(int(LADYBUG_WIDTH/2), WIDTH-int(LADYBUG_WIDTH/2)), 500, LADYBUG_WIDTH, LADYBUG_HEIGHT),
-        pygame.Rect(random.randrange(int(LADYBUG_WIDTH/2), WIDTH-int(LADYBUG_WIDTH/2)), 600, LADYBUG_WIDTH, LADYBUG_HEIGHT),
+        pygame.Rect(random.randrange(0, WIDTH-LADYBUG_WIDTH), 100, LADYBUG_WIDTH, LADYBUG_HEIGHT),
+        pygame.Rect(random.randrange(0, WIDTH-LADYBUG_WIDTH), 200, LADYBUG_WIDTH, LADYBUG_HEIGHT),
+        pygame.Rect(random.randrange(0, WIDTH-LADYBUG_WIDTH), 500, LADYBUG_WIDTH, LADYBUG_HEIGHT),
+        pygame.Rect(random.randrange(0, WIDTH-LADYBUG_WIDTH), 600, LADYBUG_WIDTH, LADYBUG_HEIGHT),
     ]
     clock = pygame.time.Clock()
     running = True
@@ -92,6 +84,7 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+                print("\nGame quit")
         keys_pressed = pygame.key.get_pressed() # checks what keys are currently being pressed
         if (keys_pressed[pygame.K_LEFT] or keys_pressed[pygame.K_a]) and player.x - VELOCITY > 0:
             player.x -= VELOCITY;
@@ -107,11 +100,18 @@ def main():
                 bad_bugs_eaten[x] = True
         for lady in ladybugs:
             if player.colliderect(lady):
-                running = False;
+                running = False
+                success = False
+                print("\nOh no! You tried to eat a ladybug! :(")
         if all_bugs_eaten(bad_bugs_eaten):
-            running = False;
+            running = False
+            success = True
+            print("\nCongrats! You ate all the little bugs! ( Now your code works beautifully ;) )")
         draw_window(player, ladybugs, bad_bugs, bad_bugs_eaten, bad_bugs_dist)
     pygame.quit()
+    if success: print("\nYou won!")
+    else: print("\nYou lost")
 
 if __name__ == "__main__":
     main()
+

@@ -5,3 +5,5 @@ be worth more points to shoot.
 
 - Alien catching bugs. Try to catch roaches and spiders, but don't catch the ladybugs! Each ladybug you run into causes you to lose a heart.
 - Easy, normal, hard, and expert modes that change how often each bug spawns, how fast you move, and how many hits you can take.
+
+-Should we preface with a slight epilepsy warning?
