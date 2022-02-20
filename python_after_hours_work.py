@@ -28,10 +28,13 @@ BG = pygame.image.load("Shoocharu_botw_fanart_resized2.jpg")
 
 pygame.display.set_caption("Eat Da Bugger")
 
-try:
-    arduino = serial.Serial("COM7", timeout=1)
-except:
-    print("Check Port")
+# try:
+#     arduino = serial.Serial("COM7", timeout=1)
+# except:
+#     print("Check Port")
+
+#t
+
 
 def draw_window(player, ladybugs, bad_bugs, bad_bugs_eaten, bad_bugs_dist, font, text):
     
@@ -95,7 +98,11 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
                 print("\nGame quit")
-        ret=str(arduino.readine())
+        # try:
+        #      arduino = serial.Serial("COM7", timeout=1)
+        # except:
+        #      print("Check Port")
+        ret = controller()
         if ret == 1:
             player.y -= VELOCITY
         if ret == 2:
@@ -132,6 +139,9 @@ def main():
     pygame.quit()
     if success: print("\nYou won!")
     else: print("\nYou lost")
+
+
+
 
 if __name__ == "__main__":
     main()
