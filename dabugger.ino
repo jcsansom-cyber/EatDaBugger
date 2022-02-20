@@ -44,21 +44,21 @@ void loop()
 
    if (LIS.getAccelerationX() > .15){
 //      robot.keyPress(KeyEvent.VK_UP);
-      Serial.print(" UP ");
+      Serial.print(1);
    
     }
    else if(LIS.getAccelerationX() < -.15){
 //      robot.keyPress(KeyEvent.VK_DOWN);
-      Serial.print(" DOWN ");
+      Serial.print(2);
    }
    else if(LIS.getAccelerationY() > .15){
 //      robot.keyPress(KeyEvent.VK_UP);
-      Serial.print(" Left ");
+      Serial.print(3);
    
     }
    else if(LIS.getAccelerationY() < -.15){
 //      robot.keyPress(KeyEvent.VK_DOWN);
-      Serial.print(" Right ");
+      Serial.print(4);
    }
    else{
 //   robot.keyRelease(KeyEvent.VK_UP);

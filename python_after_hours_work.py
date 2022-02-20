@@ -1,6 +1,7 @@
 import pygame
 import os
 import random
+import serial
 pygame.init()
 
 WIDTH, HEIGHT = 1000, 700
@@ -26,6 +27,11 @@ BUG3_IMG = pygame.transform.scale(BUG3_IMG, (BAD_BUG_WIDTH, BAD_BUG_HEIGHT))
 BG = pygame.image.load("Shoocharu_botw_fanart_resized2.jpg")
 
 pygame.display.set_caption("Eat Da Bugger")
+
+try:
+    arduino = serial.Serial("COM7", timeout=1)
+except:
+    print("Check Port")
 
 def draw_window(player, ladybugs, bad_bugs, bad_bugs_eaten, bad_bugs_dist, font, text):
     
@@ -89,6 +95,15 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
                 print("\nGame quit")
+        ret=str(arduino.readine())
+        if ret == 1:
+            player.y -= VELOCITY
+        if ret == 2:
+            player.y += VELOCITY
+        if ret == 3:
+            player.x -= VELOCITY
+        if ret == 4:
+            player.x += VELOCITY
         keys_pressed = pygame.key.get_pressed() # checks what keys are currently being pressed
         if (keys_pressed[pygame.K_LEFT] or keys_pressed[pygame.K_a]) and player.x - VELOCITY > 0:
             player.x -= VELOCITY;
