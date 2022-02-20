@@ -1,15 +1,16 @@
-from tkinter import PhotoImage
 import pygame
 import os
 import random
 pygame.init()
 
 WIDTH, HEIGHT = 1000, 700
-PLAYER_WIDTH, PLAYER_HEIGHT = 70, 50
-LADYBUG_WIDTH, LADYBUG_HEIGHT = 100, 70
+PLAYER_WIDTH, PLAYER_HEIGHT = 70, 40
+LADYBUG_WIDTH, LADYBUG_HEIGHT = 120, 90
 BAD_BUG_WIDTH, BAD_BUG_HEIGHT = 30, 20
+MAX_BUG_TRAVEL = 20
 CENTER = [500, 350]
 WINDOW = pygame.display.set_mode((WIDTH, HEIGHT))
+GRAY = (50, 50, 50)
 FPS = 60
 VELOCITY = 5;
 PLAYER_IMG = pygame.image.load(os.path.join('ufo.png'))
@@ -31,14 +32,14 @@ def draw_window(player, ladybugs, bad_bugs, bad_bugs_eaten, bad_bugs_dist):
     text = font.render('Eat all the little buggers to win! Don\'t eat the ladybugs!', True, (255, 255, 255))
     textRect = text.get_rect()
 
-    WINDOW.fill((50, 50, 50))
+    WINDOW.fill(GRAY)
     WINDOW.blit(BG, (0, 0))
     WINDOW.blit(text, textRect)
     for lady in ladybugs:
         WINDOW.blit(BUG1_IMG, (lady.x, lady.y))
     for bug in bad_bugs:
-        new_x = random.randint(-20,20) + bug.x
-        new_y = random.randint(-20,20) + bug.y
+        new_x = random.randint(-MAX_BUG_TRAVEL, MAX_BUG_TRAVEL) + bug.x
+        new_y = random.randint(-MAX_BUG_TRAVEL, MAX_BUG_TRAVEL) + bug.y
         if new_x < (WIDTH - BAD_BUG_WIDTH) and new_x > (BAD_BUG_WIDTH): 
             bug.x = new_x
         if new_y < (HEIGHT - BAD_BUG_HEIGHT) and new_y > (BAD_BUG_HEIGHT):
@@ -58,18 +59,18 @@ def all_bugs_eaten(bad_bugs_eaten):
 
 def main():
     success = False;
-    print("\nEat all the little bugs to win! Don't eat the ladybugs!")
+    print("\nEat all the little buggers to win! Don't eat the ladybugs!")
     # pygame.Rect(x, y, width, height of object)
     player = pygame.Rect(CENTER[0] - (PLAYER_WIDTH/2), CENTER[1] - (PLAYER_HEIGHT/2), PLAYER_WIDTH, PLAYER_HEIGHT)
     bad_bugs = [
-        pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-BAD_BUG_WIDTH), 90, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
-        pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-BAD_BUG_WIDTH), 125, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
-        pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-BAD_BUG_WIDTH), 160, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
-        pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-BAD_BUG_WIDTH), 230, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
-        pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-BAD_BUG_WIDTH), 300, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
-        pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-BAD_BUG_WIDTH), 460, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
-        pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-BAD_BUG_WIDTH), 520, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
-        pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-BAD_BUG_WIDTH), 600, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
+        pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-BAD_BUG_WIDTH), 40, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
+        pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-BAD_BUG_WIDTH), 110, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
+        pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-BAD_BUG_WIDTH), 180, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
+        pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-BAD_BUG_WIDTH), 250, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
+        pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-BAD_BUG_WIDTH), 430, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
+        pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-BAD_BUG_WIDTH), 500, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
+        pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-BAD_BUG_WIDTH), 570, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
+        pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-BAD_BUG_WIDTH), 640, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
     ]
     bad_bugs_eaten = [False, False, False, False, False, False, False, False]
     bad_bugs_dist = [BUG2_IMG, BUG3_IMG, BUG2_IMG, BUG3_IMG, BUG2_IMG, BUG3_IMG, BUG2_IMG, BUG3_IMG]
