@@ -1,4 +1,7 @@
 # Credit to this tutorial for a good amount of the basic Pygame code: https://www.youtube.com/watch?v=jO6qQDNa2UY
+#Credit for Accellerometer based controller: https://www.instructables.com/DIY-Accelerometer-Based-Controller/
+#Credit for communicating between python and arduino: https://www.instructables.com/Sending-Data-From-Arduino-to-Python-Via-USB/
+
 # qwerty
 import pygame
 import os
@@ -19,7 +22,7 @@ FPS = 60
 VELOCITY = 5;
 PLAYER_IMG = pygame.image.load(os.path.join('ufo.png'))
 PLAYER_IMG = pygame.transform.scale(PLAYER_IMG, (PLAYER_WIDTH, PLAYER_HEIGHT))
-BULLET_IMG = pygame.image.load(os.path.join('Shot.png'))
+#BULLET_IMG = pygame.image.load(os.path.join('Shot.png'))
 BUG1_IMG = pygame.image.load(os.path.join('Bug1.png'))
 BUG1_IMG = pygame.transform.scale(BUG1_IMG, (LADYBUG_WIDTH, LADYBUG_HEIGHT))
 BUG2_IMG = pygame.image.load(os.path.join('Bug2.png'))
