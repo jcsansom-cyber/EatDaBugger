@@ -5,5 +5,6 @@ try:
 except:
     print("Check Port")
 
-
-ret=arduino.readine()
+def controller():
+    ret=arduino.readine()
+    return ret
