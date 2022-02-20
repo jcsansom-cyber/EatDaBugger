@@ -26,12 +26,17 @@ BUG3_IMG = pygame.image.load(os.path.join('Bug3.png'))
 BUG3_IMG = pygame.transform.scale(BUG3_IMG, (BAD_BUG_WIDTH, BAD_BUG_HEIGHT))
 
 PLAYER_HIT = pygame.USEREVENT + 1
-pygame.display.set_caption("Pearl Shooter")
+pygame.display.set_caption("Eat Da Bugger")
 
-
+def draw_bugs(ladybugs, bad_bugs, bad_bugs_eaten, bad_bugs_dist):
+    for lady in ladybugs:
+        WIN.blit(BUG1_IMG, (lady.x, lady.y))
+    for baddie in bad_bugs_dist:
+        WIN.blit(bad_bugs_dist[bad_bugs.index(baddie)], (baddie.x, baddie.y))
 
 def draw_window(player):
     WIN.fill((0, 0, 0))
+    # WIN.blit(, (player.x, player.y))
     
     WIN.blit(PLAYER_IMG, (player.x, player.y))
     # WIN.blit("Points", (player.x, player.y))
@@ -46,27 +51,29 @@ def draw_window(player):
 def main():
     # pygame.Rect(x, y, width, height of object)
     player = pygame.Rect(CENTER[0] - (PLAYER_WIDTH/2), CENTER[1] - (PLAYER_HEIGHT/2), PLAYER_WIDTH, PLAYER_HEIGHT)
+    
     bad_bugs = [
         pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-int(BAD_BUG_WIDTH/2)), 90, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
+        pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-int(BAD_BUG_WIDTH/2)), 90, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
+        pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-int(BAD_BUG_WIDTH/2)), 160, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
         pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-int(BAD_BUG_WIDTH/2)), 160, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
         pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-int(BAD_BUG_WIDTH/2)), 300, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
+        pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-int(BAD_BUG_WIDTH/2)), 300, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
+        pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-int(BAD_BUG_WIDTH/2)), 370, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
         pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-int(BAD_BUG_WIDTH/2)), 370, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
     ]
+    bad_bugs_eaten = [False, False, False, False, False, False, False, False]
+    bad_bugs_dist = [BUG2_IMG, BUG2_IMG, BUG2_IMG, BUG2_IMG, BUG2_IMG, BUG2_IMG, BUG2_IMG, BUG2_IMG]
+    for baddie in bad_bugs_dist:
+        a = random.choice("12");
+        if a == "1":
+            baddie = BUG3_IMG;
     ladybugs = [
         pygame.Rect(random.randrange(int(LADYBUG_WIDTH/2), WIDTH-int(LADYBUG_WIDTH/2)), 90, LADYBUG_WIDTH, LADYBUG_HEIGHT),
         pygame.Rect(random.randrange(int(LADYBUG_WIDTH/2), WIDTH-int(LADYBUG_WIDTH/2)), 160, LADYBUG_WIDTH, LADYBUG_HEIGHT),
         pygame.Rect(random.randrange(int(LADYBUG_WIDTH/2), WIDTH-int(LADYBUG_WIDTH/2)), 300, LADYBUG_WIDTH, LADYBUG_HEIGHT),
         pygame.Rect(random.randrange(int(LADYBUG_WIDTH/2), WIDTH-int(LADYBUG_WIDTH/2)), 370, LADYBUG_WIDTH, LADYBUG_HEIGHT),
     ]
-    for lady in ladybugs:
-        WIN.blit(BUG1_IMG, (lady.x, lady.y))
-    for baddie in bad_bugs:
-        a = random.choice("12");
-        if a == "1":
-            b = BUG2_IMG;
-        else:
-            b = BUG3_IMG;
-        WIN.blit(b, (baddie.x, baddie.y))
     clock = pygame.time.Clock()
     running = True;
     while running:
@@ -87,9 +94,12 @@ def main():
             player.y += VELOCITY;
         for bug in bad_bugs:
             if player.colliderect(bug):
+                x = bad_bugs.index(bug)
+                bad_bugs_eaten[x] = True
                 # points+=1
-                
+
         draw_window(player)
+        draw_bugs(ladybugs, bad_bugs, bad_bugs_eaten, bad_bugs_dist)
             
     pygame.quit()
 
