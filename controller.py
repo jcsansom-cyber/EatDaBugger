@@ -6,5 +6,6 @@ except:
     print("Check Port")
 
 def controller():
-    ret=str(arduino.readine())
-    return ret
+    ret=str(arduino.read())
+    print(ret)
+    return (ret)

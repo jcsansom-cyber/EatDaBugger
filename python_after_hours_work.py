@@ -2,6 +2,7 @@ import pygame
 import os
 import random
 import serial
+from controller import *
 pygame.init()
 
 WIDTH, HEIGHT = 1000, 700
@@ -103,22 +104,22 @@ def main():
         # except:
         #      print("Check Port")
         ret = controller()
-        if ret == 1:
-            player.y -= VELOCITY
-        if ret == 2:
-            player.y += VELOCITY
-        if ret == 3:
-            player.x -= VELOCITY
-        if ret == 4:
-            player.x += VELOCITY
+        # if ret == "1":
+        #     player.y -= VELOCITY
+        # if ret == "2":
+        #     player.y += VELOCITY
+        # if ret == "3":
+        #     player.x -= VELOCITY
+        # if ret == "4":
+        #     player.x += VELOCITY
         keys_pressed = pygame.key.get_pressed() # checks what keys are currently being pressed
-        if (keys_pressed[pygame.K_LEFT] or keys_pressed[pygame.K_a]) and player.x - VELOCITY > 0:
+        if (ret == "b'3'" or keys_pressed[pygame.K_LEFT] or keys_pressed[pygame.K_a]) and player.x - VELOCITY > 0:
             player.x -= VELOCITY;
-        if (keys_pressed[pygame.K_RIGHT] or keys_pressed[pygame.K_d]) and player.x + VELOCITY + PLAYER_WIDTH < WIDTH:
+        if (ret == "b'4'" or keys_pressed[pygame.K_RIGHT] or keys_pressed[pygame.K_d]) and player.x + VELOCITY + PLAYER_WIDTH < WIDTH:
             player.x += VELOCITY;
-        if (keys_pressed[pygame.K_UP] or keys_pressed[pygame.K_w]) and player.y - VELOCITY > 0:
+        if (ret == "b'1'" or keys_pressed[pygame.K_UP] or keys_pressed[pygame.K_w]) and player.y - VELOCITY > 0:
             player.y -= VELOCITY;
-        if (keys_pressed[pygame.K_DOWN] or keys_pressed[pygame.K_s]) and player.y + VELOCITY + PLAYER_HEIGHT < HEIGHT:
+        if (ret == "b'2'" or keys_pressed[pygame.K_DOWN] or keys_pressed[pygame.K_s]) and player.y + VELOCITY + PLAYER_HEIGHT < HEIGHT:
             player.y += VELOCITY;
         for bug in bad_bugs:
             if player.colliderect(bug):

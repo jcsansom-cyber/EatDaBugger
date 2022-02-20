@@ -42,23 +42,23 @@ void loop()
 //   Serial.print("y:"); Serial.print(LIS.getAccelerationY()); Serial.print("  ");
 //   Serial.print("z:"); Serial.println(LIS.getAccelerationZ());
 
-   if (LIS.getAccelerationX() > .15){
+   if (LIS.getAccelerationX() > .1){
 //      robot.keyPress(KeyEvent.VK_UP);
-      Serial.print(1);
+      Serial.print("1");
    
     }
-   else if(LIS.getAccelerationX() < -.15){
+   if(LIS.getAccelerationX() < -.1){
 //      robot.keyPress(KeyEvent.VK_DOWN);
-      Serial.print(2);
+      Serial.print("2");
    }
-   else if(LIS.getAccelerationY() > .15){
+   if(LIS.getAccelerationY() > .1){
 //      robot.keyPress(KeyEvent.VK_UP);
-      Serial.print(3);
+      Serial.print("3");
    
     }
-   else if(LIS.getAccelerationY() < -.15){
+   if(LIS.getAccelerationY() < -.1){
 //      robot.keyPress(KeyEvent.VK_DOWN);
-      Serial.print(4);
+      Serial.print("4");
    }
    else{
 //   robot.keyRelease(KeyEvent.VK_UP);
