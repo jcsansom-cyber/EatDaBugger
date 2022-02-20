@@ -1,3 +1,5 @@
+# Credit to this tutorial for a good amount of the basic Pygame code: https://www.youtube.com/watch?v=jO6qQDNa2UY
+
 import pygame
 import os
 import random
@@ -17,7 +19,6 @@ FPS = 60
 VELOCITY = 5;
 PLAYER_IMG = pygame.image.load(os.path.join('ufo.png'))
 PLAYER_IMG = pygame.transform.scale(PLAYER_IMG, (PLAYER_WIDTH, PLAYER_HEIGHT))
-# PLAYER_IMG = pygame.transform.rotate(PLAYER_IMG, 0)
 BULLET_IMG = pygame.image.load(os.path.join('Shot.png'))
 BUG1_IMG = pygame.image.load(os.path.join('Bug1.png'))
 BUG1_IMG = pygame.transform.scale(BUG1_IMG, (LADYBUG_WIDTH, LADYBUG_HEIGHT))
@@ -28,14 +29,6 @@ BUG3_IMG = pygame.transform.scale(BUG3_IMG, (BAD_BUG_WIDTH, BAD_BUG_HEIGHT))
 BG = pygame.image.load("Shoocharu_botw_fanart_resized2.jpg")
 
 pygame.display.set_caption("Eat Da Bugger")
-
-# try:
-#     arduino = serial.Serial("COM7", timeout=1)
-# except:
-#     print("Check Port")
-
-#t
-
 
 def draw_window(player, ladybugs, bad_bugs, bad_bugs_eaten, bad_bugs_dist, font, text):
     
@@ -99,19 +92,7 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
                 print("\nGame quit")
-        # try:
-        #      arduino = serial.Serial("COM7", timeout=1)
-        # except:
-        #      print("Check Port")
         ret = controller()
-        # if ret == "1":
-        #     player.y -= VELOCITY
-        # if ret == "2":
-        #     player.y += VELOCITY
-        # if ret == "3":
-        #     player.x -= VELOCITY
-        # if ret == "4":
-        #     player.x += VELOCITY
         keys_pressed = pygame.key.get_pressed() # checks what keys are currently being pressed
         if (ret == "b'3'" or keys_pressed[pygame.K_LEFT] or keys_pressed[pygame.K_a]) and player.x - VELOCITY > 0:
             player.x -= VELOCITY;
@@ -135,15 +116,9 @@ def main():
             success = True
             print("\nCongrats! You ate all the little bugs! ( Now your code works beautifully ;) )")
         draw_window(player, ladybugs, bad_bugs, bad_bugs_eaten, bad_bugs_dist, font, text)
-    # if success: text = font.render("You won!", True, (255, 255, 255))
-    # else: text = font.render("You lost!", True, (255, 255, 255))
     pygame.quit()
     if success: print("\nYou won!")
     else: print("\nYou lost")
 
-
-
-
 if __name__ == "__main__":
     main()
-
