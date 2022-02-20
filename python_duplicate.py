@@ -5,12 +5,11 @@ import random
 # Tutorial starts working on bullets at 52:54
 # Link to tutorial: https://www.youtube.com/watch?v=jO6qQDNa2UY
 
-points = 0
-WIDTH, HEIGHT = 900, 500
+WIDTH, HEIGHT = 1000, 700
 PLAYER_WIDTH, PLAYER_HEIGHT = 70, 50
 LADYBUG_WIDTH, LADYBUG_HEIGHT = 100, 70
 BAD_BUG_WIDTH, BAD_BUG_HEIGHT = 30, 20
-CENTER = [450, 250]
+CENTER = [500, 350]
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 FPS = 60
 VELOCITY = 5;
@@ -33,26 +32,26 @@ def draw_window(player, ladybugs, bad_bugs, bad_bugs_eaten, bad_bugs_dist):
     # WIN.blit(, (player.x, player.y))
     for lady in ladybugs:
         WIN.blit(BUG1_IMG, (lady.x, lady.y))
-    # for z in bad_bugs:
+    # for bug in bad_bugs:
     #     new_x = random.randint(-10,10)
     #     new_y = random.randint(-10,10)
 
-    #     if z.x - new_x < 0 or z.x + new_x + BAD_BUG_WIDTH > WIDTH or z.x + new_x < 0 or z.x - new_x - BAD_BUG_WIDTH > WIDTH: 
-    #         z.x += new_x
-    #     if z.y - new_y < 0 or z.y + new_y + BAD_BUG_HEIGHT > HEIGHT or z.y + new_y < 0 or z.y - new_y - BAD_BUG_HEIGHT > HEIGHT:
-    #         z.y += new_y
+    #     if bug.x + new_x < 0 and bug.x + new_x + BAD_BUG_WIDTH > WIDTH and bug.x + new_x < 0 and bug.x + new_x - BAD_BUG_WIDTH > WIDTH: 
+    #         bug.x += new_x
+    #     if bug.y + new_y < 0 and bug.y + new_y + BAD_BUG_HEIGHT > HEIGHT and bug.y + new_y < 0 and bug.y + new_y - BAD_BUG_HEIGHT > HEIGHT:
+    #         bug.y += new_y
             
     for bug in bad_bugs:
         new_x = random.randint(-10,10) + bug.x
-        new_y=random.randint(-10,10) + bug.y
-        if new_x <(800) or new_x>(100): 
-            bug.x=new_x
-        else:
-            bug.x -=new_x
-        if new_y<(400) or new_y>(100):
-            bug.y=new_y
-        else:
-            bug.y-=new_y
+        new_y = random.randint(-10,10) + bug.y
+        if new_x < (WIDTH - BAD_BUG_WIDTH) and new_x > (BAD_BUG_WIDTH): 
+            bug.x = new_x
+        # else:
+        #     bug.x -= new_x
+        if new_y < (HEIGHT - BAD_BUG_HEIGHT) and new_y > (BAD_BUG_HEIGHT):
+            bug.y = new_y
+        # else:
+        #     bug.y -= new_y
 
     for baddie in bad_bugs:
         if not bad_bugs_eaten[bad_bugs.index(baddie)]:
@@ -62,10 +61,12 @@ def draw_window(player, ladybugs, bad_bugs, bad_bugs_eaten, bad_bugs_dist):
 
     pygame.display.update()
 
-# def gets_hit() {
-
-# }
-
+def all_bugs_eaten(bad_bugs_eaten):
+    completed = True
+    for condition in bad_bugs_eaten:
+        if not condition:
+            completed = False
+    return completed
 
 def main():
     # pygame.Rect(x, y, width, height of object)
@@ -88,10 +89,10 @@ def main():
         if a == "2":
             baddie = BUG3_IMG;
     ladybugs = [
-        pygame.Rect(random.randrange(int(LADYBUG_WIDTH/2), WIDTH-int(LADYBUG_WIDTH/2)), 90, LADYBUG_WIDTH, LADYBUG_HEIGHT),
-        pygame.Rect(random.randrange(int(LADYBUG_WIDTH/2), WIDTH-int(LADYBUG_WIDTH/2)), 160, LADYBUG_WIDTH, LADYBUG_HEIGHT),
-        pygame.Rect(random.randrange(int(LADYBUG_WIDTH/2), WIDTH-int(LADYBUG_WIDTH/2)), 300, LADYBUG_WIDTH, LADYBUG_HEIGHT),
-        pygame.Rect(random.randrange(int(LADYBUG_WIDTH/2), WIDTH-int(LADYBUG_WIDTH/2)), 370, LADYBUG_WIDTH, LADYBUG_HEIGHT),
+        pygame.Rect(random.randrange(int(LADYBUG_WIDTH/2), WIDTH-int(LADYBUG_WIDTH/2)), 100, LADYBUG_WIDTH, LADYBUG_HEIGHT),
+        pygame.Rect(random.randrange(int(LADYBUG_WIDTH/2), WIDTH-int(LADYBUG_WIDTH/2)), 200, LADYBUG_WIDTH, LADYBUG_HEIGHT),
+        pygame.Rect(random.randrange(int(LADYBUG_WIDTH/2), WIDTH-int(LADYBUG_WIDTH/2)), 500, LADYBUG_WIDTH, LADYBUG_HEIGHT),
+        pygame.Rect(random.randrange(int(LADYBUG_WIDTH/2), WIDTH-int(LADYBUG_WIDTH/2)), 600, LADYBUG_WIDTH, LADYBUG_HEIGHT),
     ]
     clock = pygame.time.Clock()
     running = True
@@ -115,11 +116,15 @@ def main():
             if player.colliderect(bug):
                 x = bad_bugs.index(bug)
                 bad_bugs_eaten[x] = True
-                # points+=1
-        #running = False # Made false only to be made true again as long as there are still uneaten bugs
-        #for condition in bad_bugs_eaten:
-         #   if not condition:
-          #      running = True;
+        for lady in ladybugs:
+            if player.colliderect(lady):
+                running = False;
+        # running = False # Made false only to be made true again as long as there are still uneaten bugs
+        # for condition in bad_bugs_eaten:
+        #    if not condition:
+        #        running = True;
+        if all_bugs_eaten(bad_bugs_eaten):
+            running = False;
         draw_window(player, ladybugs, bad_bugs, bad_bugs_eaten, bad_bugs_dist)
             
     pygame.quit()
