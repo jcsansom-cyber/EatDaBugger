@@ -1,3 +1,4 @@
+from tkinter import PhotoImage
 import pygame
 import os
 import random
@@ -23,23 +24,18 @@ BUG2_IMG = pygame.image.load(os.path.join('Bug2.png'))
 BUG2_IMG = pygame.transform.scale(BUG2_IMG, (BAD_BUG_WIDTH, BAD_BUG_HEIGHT))
 BUG3_IMG = pygame.image.load(os.path.join('Bug3.png'))
 BUG3_IMG = pygame.transform.scale(BUG3_IMG, (BAD_BUG_WIDTH, BAD_BUG_HEIGHT))
+BG = pygame.image.load("Shoocharu_botw_fanart_resized2.jpg")
 
 PLAYER_HIT = pygame.USEREVENT + 1
 pygame.display.set_caption("Eat Da Bugger")
 
 def draw_window(player, ladybugs, bad_bugs, bad_bugs_eaten, bad_bugs_dist):
     WIN.fill((50, 50, 50))
+    # WIN.fill(PhotoImage('photo-1465101162946-4377e57745c3.jpeg'))
+    WIN.blit(BG, (0, 0))
     # WIN.blit(, (player.x, player.y))
     for lady in ladybugs:
         WIN.blit(BUG1_IMG, (lady.x, lady.y))
-    # for bug in bad_bugs:
-    #     new_x = random.randint(-10,10)
-    #     new_y = random.randint(-10,10)
-
-    #     if bug.x + new_x < 0 and bug.x + new_x + BAD_BUG_WIDTH > WIDTH and bug.x + new_x < 0 and bug.x + new_x - BAD_BUG_WIDTH > WIDTH: 
-    #         bug.x += new_x
-    #     if bug.y + new_y < 0 and bug.y + new_y + BAD_BUG_HEIGHT > HEIGHT and bug.y + new_y < 0 and bug.y + new_y - BAD_BUG_HEIGHT > HEIGHT:
-    #         bug.y += new_y
             
     for bug in bad_bugs:
         new_x = random.randint(-10,10) + bug.x
@@ -71,7 +67,6 @@ def all_bugs_eaten(bad_bugs_eaten):
 def main():
     # pygame.Rect(x, y, width, height of object)
     player = pygame.Rect(CENTER[0] - (PLAYER_WIDTH/2), CENTER[1] - (PLAYER_HEIGHT/2), PLAYER_WIDTH, PLAYER_HEIGHT)
-    
     bad_bugs = [
         pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-int(BAD_BUG_WIDTH/2)), 90, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
         pygame.Rect(random.randrange(int(BAD_BUG_WIDTH/2), WIDTH-int(BAD_BUG_WIDTH/2)), 90, BAD_BUG_WIDTH, BAD_BUG_HEIGHT),
@@ -84,10 +79,6 @@ def main():
     ]
     bad_bugs_eaten = [False, False, False, False, False, False, False, False]
     bad_bugs_dist = [BUG2_IMG, BUG3_IMG, BUG2_IMG, BUG3_IMG, BUG2_IMG, BUG3_IMG, BUG2_IMG, BUG3_IMG]
-    for baddie in bad_bugs_dist:
-        a = random.choice("12");
-        if a == "2":
-            baddie = BUG3_IMG;
     ladybugs = [
         pygame.Rect(random.randrange(int(LADYBUG_WIDTH/2), WIDTH-int(LADYBUG_WIDTH/2)), 100, LADYBUG_WIDTH, LADYBUG_HEIGHT),
         pygame.Rect(random.randrange(int(LADYBUG_WIDTH/2), WIDTH-int(LADYBUG_WIDTH/2)), 200, LADYBUG_WIDTH, LADYBUG_HEIGHT),
@@ -101,8 +92,6 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-
-        
         keys_pressed = pygame.key.get_pressed() # checks what keys are currently being pressed
         if (keys_pressed[pygame.K_LEFT] or keys_pressed[pygame.K_a]) and player.x - VELOCITY > 0:
             player.x -= VELOCITY;
@@ -119,14 +108,9 @@ def main():
         for lady in ladybugs:
             if player.colliderect(lady):
                 running = False;
-        # running = False # Made false only to be made true again as long as there are still uneaten bugs
-        # for condition in bad_bugs_eaten:
-        #    if not condition:
-        #        running = True;
         if all_bugs_eaten(bad_bugs_eaten):
             running = False;
         draw_window(player, ladybugs, bad_bugs, bad_bugs_eaten, bad_bugs_dist)
-            
     pygame.quit()
 
 if __name__ == "__main__":
