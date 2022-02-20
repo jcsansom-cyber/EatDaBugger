@@ -1,6 +1,7 @@
 # Credit to this tutorial for a good amount of the basic Pygame code: https://www.youtube.com/watch?v=jO6qQDNa2UY
 #Credit for Accellerometer based controller: https://www.instructables.com/DIY-Accelerometer-Based-Controller/
 #Credit for communicating between python and arduino: https://www.instructables.com/Sending-Data-From-Arduino-to-Python-Via-USB/
+#Credit to Shoocharu for background art
 
 # qwerty
 import pygame
