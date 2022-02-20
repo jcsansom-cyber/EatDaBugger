@@ -5,12 +5,12 @@ import os
 # Link to tutorial: https://www.youtube.com/watch?v=jO6qQDNa2UY
 
 WIDTH, HEIGHT = 900, 500
-PLAYER_WIDTH, PLAYER_HEIGHT = 100, 100
+PLAYER_WIDTH, PLAYER_HEIGHT = 70,50
 CENTER = (450, 250)
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 FPS = 60
 VELOCITY = 5;
-PLAYER_IMG = pygame.image.load(os.path.join('UFo.png'))
+PLAYER_IMG = pygame.image.load(os.path.join('ufo.png'))
 PLAYER_IMG = pygame.transform.scale(PLAYER_IMG, (PLAYER_WIDTH, PLAYER_HEIGHT))
 PLAYER_IMG = pygame.transform.rotate(PLAYER_IMG, 0)
 BULLET_IMG = pygame.image.load(os.path.join('Shot.png'))
@@ -27,9 +27,9 @@ def draw_window(player):
     WIN.blit(PLAYER_IMG, (player.x, player.y))
     pygame.display.update()
 
-def gets_hit() {
+# def gets_hit() {
 
-}
+# }
 
 
 def main():
@@ -43,6 +43,7 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
         # player.x += 1
+        
         keys_pressed = pygame.key.get_pressed() # checks what keys are currently being pressed
         if keys_pressed[pygame.K_LEFT] and player.x - VELOCITY > 0:
             player.x -= VELOCITY;
@@ -53,7 +54,7 @@ def main():
         if keys_pressed[pygame.K_DOWN] and player.y + VELOCITY + PLAYER_HEIGHT < HEIGHT:
             player.y += VELOCITY;
 
-        if player.colliderect()
+        # if player.colliderect()
         draw_window(player)
             
     pygame.quit()
