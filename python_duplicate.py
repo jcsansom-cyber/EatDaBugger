@@ -34,7 +34,11 @@ def draw_window(player, ladybugs, bad_bugs, bad_bugs_eaten, bad_bugs_dist):
     for lady in ladybugs:
         WIN.blit(BUG1_IMG, (lady.x, lady.y))
     for z in bad_bugs:
+        new_x = random.randint(-5,5)
+        new_y=random.randint(-5,5)
+        if z.x <(900 - BAD_BUG_WIDTH) or z.x>(BAD_BUG_WIDTH): 
             z.x+=random.randint(-5,5)
+        if z.y<(500-BAD_BUG_HEIGHT) or z.y>BAD_BUG_HEIGHT:
             z.y+=random.randint(-5,5)
     for baddie in bad_bugs:
         if not bad_bugs_eaten[bad_bugs.index(baddie)]:
