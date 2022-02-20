@@ -27,9 +27,8 @@ BG = pygame.image.load("Shoocharu_botw_fanart_resized2.jpg")
 
 pygame.display.set_caption("Eat Da Bugger")
 
-def draw_window(player, ladybugs, bad_bugs, bad_bugs_eaten, bad_bugs_dist):
-    font = pygame.font.Font('freesansbold.ttf', 32)
-    text = font.render('Eat all the little buggers to win! Don\'t eat the ladybugs!', True, (255, 255, 255))
+def draw_window(player, ladybugs, bad_bugs, bad_bugs_eaten, bad_bugs_dist, font, text):
+    
     textRect = text.get_rect()
 
     WINDOW.fill(GRAY)
@@ -80,6 +79,8 @@ def main():
         pygame.Rect(random.randrange(0, WIDTH-LADYBUG_WIDTH), 420, LADYBUG_WIDTH, LADYBUG_HEIGHT),
         pygame.Rect(random.randrange(0, WIDTH-LADYBUG_WIDTH), 550, LADYBUG_WIDTH, LADYBUG_HEIGHT),
     ]
+    font = pygame.font.Font('freesansbold.ttf', 32)
+    text = font.render('Eat all the little buggers to win! Don\'t eat the ladybugs!', True, (255, 255, 255))
     clock = pygame.time.Clock()
     running = True
     while running:
@@ -110,7 +111,9 @@ def main():
             running = False
             success = True
             print("\nCongrats! You ate all the little bugs! ( Now your code works beautifully ;) )")
-        draw_window(player, ladybugs, bad_bugs, bad_bugs_eaten, bad_bugs_dist)
+        draw_window(player, ladybugs, bad_bugs, bad_bugs_eaten, bad_bugs_dist, font, text)
+    # if success: text = font.render("You won!", True, (255, 255, 255))
+    # else: text = font.render("You lost!", True, (255, 255, 255))
     pygame.quit()
     if success: print("\nYou won!")
     else: print("\nYou lost")
