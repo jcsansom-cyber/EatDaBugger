@@ -2,16 +2,14 @@ from tkinter import PhotoImage
 import pygame
 import os
 import random
-
-# Tutorial starts working on bullets at 52:54
-# Link to tutorial: https://www.youtube.com/watch?v=jO6qQDNa2UY
+pygame.init()
 
 WIDTH, HEIGHT = 1000, 700
 PLAYER_WIDTH, PLAYER_HEIGHT = 70, 50
 LADYBUG_WIDTH, LADYBUG_HEIGHT = 100, 70
 BAD_BUG_WIDTH, BAD_BUG_HEIGHT = 30, 20
 CENTER = [500, 350]
-WIN = pygame.display.set_mode((WIDTH, HEIGHT))
+WINDOW = pygame.display.set_mode((WIDTH, HEIGHT))
 FPS = 60
 VELOCITY = 5;
 PLAYER_IMG = pygame.image.load(os.path.join('ufo.png'))
@@ -26,14 +24,18 @@ BUG3_IMG = pygame.image.load(os.path.join('Bug3.png'))
 BUG3_IMG = pygame.transform.scale(BUG3_IMG, (BAD_BUG_WIDTH, BAD_BUG_HEIGHT))
 BG = pygame.image.load("Shoocharu_botw_fanart_resized2.jpg")
 
-PLAYER_HIT = pygame.USEREVENT + 1
 pygame.display.set_caption("Eat Da Bugger")
 
 def draw_window(player, ladybugs, bad_bugs, bad_bugs_eaten, bad_bugs_dist):
-    WIN.fill((50, 50, 50))
-    WIN.blit(BG, (0, 0))
+    font = pygame.font.Font('freesansbold.ttf', 32)
+    text = font.render('Eat all the little buggers to win! Don\'t eat the ladybugs!', True, (255, 255, 255))
+    textRect = text.get_rect()
+
+    WINDOW.fill((50, 50, 50))
+    WINDOW.blit(BG, (0, 0))
+    WINDOW.blit(text, textRect)
     for lady in ladybugs:
-        WIN.blit(BUG1_IMG, (lady.x, lady.y))
+        WINDOW.blit(BUG1_IMG, (lady.x, lady.y))
     for bug in bad_bugs:
         new_x = random.randint(-20,20) + bug.x
         new_y = random.randint(-20,20) + bug.y
@@ -43,8 +45,8 @@ def draw_window(player, ladybugs, bad_bugs, bad_bugs_eaten, bad_bugs_dist):
             bug.y = new_y
     for baddie in bad_bugs:
         if not bad_bugs_eaten[bad_bugs.index(baddie)]:
-            WIN.blit(bad_bugs_dist[bad_bugs.index(baddie)], (baddie.x, baddie.y))
-    WIN.blit(PLAYER_IMG, (player.x, player.y))
+            WINDOW.blit(bad_bugs_dist[bad_bugs.index(baddie)], (baddie.x, baddie.y))
+    WINDOW.blit(PLAYER_IMG, (player.x, player.y))
     pygame.display.update()
 
 def all_bugs_eaten(bad_bugs_eaten):
@@ -74,8 +76,8 @@ def main():
     ladybugs = [
         pygame.Rect(random.randrange(0, WIDTH-LADYBUG_WIDTH), 100, LADYBUG_WIDTH, LADYBUG_HEIGHT),
         pygame.Rect(random.randrange(0, WIDTH-LADYBUG_WIDTH), 200, LADYBUG_WIDTH, LADYBUG_HEIGHT),
-        pygame.Rect(random.randrange(0, WIDTH-LADYBUG_WIDTH), 500, LADYBUG_WIDTH, LADYBUG_HEIGHT),
-        pygame.Rect(random.randrange(0, WIDTH-LADYBUG_WIDTH), 600, LADYBUG_WIDTH, LADYBUG_HEIGHT),
+        pygame.Rect(random.randrange(0, WIDTH-LADYBUG_WIDTH), 420, LADYBUG_WIDTH, LADYBUG_HEIGHT),
+        pygame.Rect(random.randrange(0, WIDTH-LADYBUG_WIDTH), 550, LADYBUG_WIDTH, LADYBUG_HEIGHT),
     ]
     clock = pygame.time.Clock()
     running = True
